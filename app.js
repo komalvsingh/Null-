@@ -6,7 +6,7 @@ import userrouter from "./src/user.js";
 import itemrouter from "./src/items.js";
 import postrouter from "./src/post.js";
 import cron from "node-cron";
-import { checkExpiringProducts, matchExpiringItemsWithRequests } from "./ai_expiry_checker.js";
+
 
 const app = express();
 dotenv.config();
