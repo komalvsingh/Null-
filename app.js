@@ -2,9 +2,9 @@ import express, { json, urlencoded } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import userrouter from "./src/user.js";
-import itemrouter from "./src/items.js";
-import postrouter from "./src/post.js";
+import userrouter from "./backend/routes/user.js";
+import itemrouter from "./backend/routes/items.js";
+import postrouter from "./backend/routes/post.js";
 import cron from "node-cron";
 
 

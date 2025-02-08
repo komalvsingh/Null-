@@ -1,5 +1,5 @@
 import express from "express";
-import { register,login} from "./usercontroller.js"; // Import using ES module syntax
+import { register,login} from "../controllers/usercontroller.js"; // Import using ES module syntax
 
 const router = express.Router();
 

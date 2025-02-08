@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import express from 'express';
-import { addItem, deleteItem, updateItem } from './itemController.js'; // Import item controller functions
+import { addItem, deleteItem, updateItem } from '../controllers/itemController.js'; // Import item controller functions
 
 const router = express.Router();
 
