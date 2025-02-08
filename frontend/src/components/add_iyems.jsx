@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { CalendarIcon, LocationMarkerIcon, ClipboardListIcon, CubeIcon, HashtagIcon } from "@heroicons/react/solid";
-import styled, { keyframes } from "styled-components";
+import * as THREE from "three";
+import styled from "styled-components";
 
 const AddItemPage = () => {
   const [itemName, setItemName] = useState("");
@@ -13,6 +14,49 @@ const AddItemPage = () => {
 
   const categories = ["Vegetables", "Packaged Food", "Grains"];
   const units = ["kg", "liters", "packs"];
+
+  const mountRef = useRef(null); // Ref for Three.js canvas
+
+  useEffect(() => {
+    // Set up Three.js scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    mountRef.current.appendChild(renderer.domElement);
+
+    // Add a 3D object (e.g., a rotating cube)
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
+    const material = new THREE.MeshBasicMaterial({ color: 0x4da1a9, wireframe: true });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // Position the camera
+    camera.position.z = 5;
+
+    // Animation loop
+    const animate = () => {
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    // Handle window resize
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      mountRef.current.removeChild(renderer.domElement);
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +77,10 @@ const AddItemPage = () => {
 
   return (
     <Container>
+      {/* Three.js Canvas */}
+      <div ref={mountRef} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0 }} />
+
+      {/* Form Overlay */}
       <FormWrapper>
         <h2 className="text-4xl font-bold text-center mb-8 text-[#2E5077]">Add New Item</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -108,40 +156,27 @@ const AddItemPage = () => {
   );
 };
 
-// Keyframes for animations
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
+// Styled Components
 const Container = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background: #f6f4f0;
-  padding: 2rem;
+  overflow: hidden;
 `;
 
 const FormWrapper = styled.div`
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 600px;
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
   padding: 2.5rem;
   border-radius: 15px;
   border: 2px solid #4da1a9;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-  animation: ${fadeIn} 0.8s ease-out;
-
-  &:hover {
-    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2);
-  }
 `;
 
 const InputGroup = styled.div`
