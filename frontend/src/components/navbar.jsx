@@ -109,8 +109,8 @@ function Navbar() {
       <NavLinks>
         <NavLink href="/">Home</NavLink>
         <NavLink href="#about">About</NavLink>
-        <NavLink href="/dish">Challenges</NavLink>
-        <NavLink href="#contact">Contact</NavLink>
+        <NavLink href="/dish">Dashboard</NavLink>
+        <NavLink href="#contact">Contact Us</NavLink>
       </NavLinks>
       <IconsContainer>
         <SearchBar>
