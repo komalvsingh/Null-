@@ -1,4 +1,4 @@
-import OrphanagePost from "./postmodel.js";
+import OrphanagePost from "../models/postmodel.js";
 
 // Add a new post
 export const addPost = async (req, res) => {

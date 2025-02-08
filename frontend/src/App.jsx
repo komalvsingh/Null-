@@ -1,10 +1,10 @@
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Signin from "./register";
-import Store_dash from "./store_dash";
+import Store_dash from "./components/store_dash";
 import Login from "./login";
-import Shelter_dash from "./shelter_dash";
-import AddItemPage from "./add_iyems";
-import OrphanagePostPage from "./add_post";
+import Shelter_dash from "./components/shelter_dash";
+import AddItemPage from "./components/add_iyems";
+import OrphanagePostPage from "./components/add_post";
 function App(){
   return (
     <BrowserRouter>
