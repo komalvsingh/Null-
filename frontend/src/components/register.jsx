@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import axios from "axios";
 
 function Signin() {
@@ -8,7 +8,7 @@ function Signin() {
     username: "",
     email: "",
     password: "",
-    userType: "store", 
+    userType: "store",
   });
 
   const [error, setError] = useState("");
@@ -29,7 +29,6 @@ function Signin() {
     const email = formData.get("email");
     const password = formData.get("password");
     const userType = formData.get("userType");
-    
 
     try {
       const res = await axios.post("http://localhost:5001/api/user/register", {
@@ -37,7 +36,6 @@ function Signin() {
         email,
         password,
         userType,
-        
       });
 
       navigate("/login");
@@ -46,57 +44,65 @@ function Signin() {
     } finally {
       setIsLoading(false);
     }
-  }; // 🔴 FIXED: Missing closing brace
+  };
 
   return (
     <Container>
       <div className="card">
         <div className="left">
           <img
-            src="https://t3.ftcdn.net/jpg/08/57/94/28/360_F_857942877_4wpnYJVWAiso1dgVnoVuVnqwFcHLuTCp.jpg"
+            src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
             alt="side-img"
           />
         </div>
+        
         <div className="right">
           <form onSubmit={handleSubmit}>
             <div className="brand">
-              <h1>InnovateHub</h1>
+              <h1>Food & Drink Donation</h1>
+              <p>Join us to make a difference</p>
             </div>
-            {error && <p className="error">{error}</p>} {/* 🔹 Show error message */}
+            {error && <p className="error">{error}</p>}
 
-            <input
-              type="text"
-              name="username"
-              required
-              placeholder="Username"
-              onChange={handleChange}
-            />
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="Email"
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              name="password"
-              required
-              placeholder="Password"
-              onChange={handleChange}
-            />
-
-            <select name="userType" onChange={handleChange} value={values.userType} required>
-              <option value="store">Grocery Store (Inventory Management)</option>
-              <option value="orphanage">Orphanage (Food Request)</option>
-            </select>
+            <div className="input-group">
+              <input
+                type="text"
+                name="username"
+                required
+                placeholder="Username"
+                onChange={handleChange}
+              />
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="Email"
+                onChange={handleChange}
+              />
+              <input
+                type="password"
+                name="password"
+                required
+                placeholder="Password"
+                onChange={handleChange}
+              />
+              <select
+                name="userType"
+                onChange={handleChange}
+                value={values.userType}
+                required
+              >
+                <option value="store">Grocery Store (Inventory Management)</option>
+                <option value="orphanage">Orphanage (Food Request)</option>
+              </select>
+            </div>
 
             <button type="submit" disabled={isLoading}>
-              {isLoading ? "Registering..." : "Sign In"}
+              {isLoading ? "Registering..." : "Sign Up"}
             </button>
 
             <span>
-              Already have an account? <Link to="/login">Login.</Link>
+              Already have an account? <Link to="/login">Login</Link>
             </span>
           </form>
         </div>
@@ -105,72 +111,122 @@ function Signin() {
   );
 }
 
+// Keyframes for animations
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
 const Container = styled.div`
   height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #121212;
+  background: #f6f4f0; /* Light background color */
+  overflow: hidden;
 
   .card {
     display: flex;
-    background-color: #1e1e1e;
-    border-radius: 10px;
+    flex-direction: row;
+    background-color: #ffffff; /* White background */
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     width: 900px;
-    height: 600px;
+    height: 550px;
+    animation: ${fadeIn} 0.8s ease-out;
+
+    &:hover {
+      box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    }
   }
 
   .left {
     flex: 1;
+    overflow: hidden;
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.5s ease;
+
+      &:hover {
+        transform: scale(1.1); /* Zoom effect on hover */
+      }
     }
   }
 
   .right {
     flex: 1;
-    padding: 2rem;
+    padding: 2.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: #1e1e1e;
+    animation: ${fadeIn} 1s ease-out;
 
     .brand {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
       h1 {
-        color: #ffffff;
-        font-size: 2rem;
+        color: #2e5077; /* Dark blue color */
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        color: #4da1a9; /* Teal color */
+        font-size: 0.9rem;
       }
     }
 
-    input, select {
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    input,
+    select {
       background-color: transparent;
       border: none;
-      border-bottom: 2px solid #edcef8;
+      border-bottom: 2px solid #4da1a9; /* Teal color */
       padding: 0.5rem 0;
-      color: #ffffff;
+      color: #2e5077; /* Dark blue color */
       width: 100%;
       font-size: 1rem;
-      margin-bottom: 1.5rem;
       outline: none;
       transition: border-bottom 0.3s ease;
 
       &:focus {
-        border-bottom: 2px solid transparent;
-        background: linear-gradient(90deg, #9b5de5, #8338ec);
-        -webkit-background-clip: text;
-        color: white;
+        border-bottom: 2px solid #79d7be; /* Light green color */
+      }
+
+      &::placeholder {
+        color: #aaaaaa; /* Light gray placeholder */
       }
     }
 
     button {
-      background: linear-gradient(135deg, #007bff, #00d4ff);
+      background: linear-gradient(135deg, #4da1a9, #79d7be); /* Teal to light green gradient */
       color: white;
       padding: 1rem 2rem;
       border: none;
@@ -179,30 +235,44 @@ const Container = styled.div`
       border-radius: 0.4rem;
       font-size: 1rem;
       width: 100%;
-      transition: background 0.3s ease;
+      text-transform: uppercase;
+      transition: background 0.3s ease, transform 0.3s ease;
+      animation: ${pulse} 2s infinite;
 
       &:hover {
-        background: linear-gradient(90deg, #1e5adf, #4c8bf5);
+        background: linear-gradient(135deg, #79d7be, #4da1a9); /* Reverse gradient on hover */
+        transform: translateY(-2px); /* Lift effect on hover */
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        background: #cccccc; /* Gray for disabled state */
+        animation: none;
       }
     }
 
     .error {
-      color: red;
-      text-align: center;
+      color: #ff4d4d; /* Red for errors */
       font-size: 0.9rem;
       margin-bottom: 1rem;
+      text-align: center;
     }
 
     span {
       font-size: 0.9rem;
-      color: #aaaaaa;
-      margin-top: 2rem;
+      color: #2e5077; /* Dark blue color */
       text-align: center;
+      margin-top: 1.5rem;
 
       a {
-        color: #4c8bf5;
+        color: #4da1a9; /* Teal color */
         text-decoration: none;
         font-weight: bold;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #79d7be; /* Light green on hover */
+        }
       }
     }
   }

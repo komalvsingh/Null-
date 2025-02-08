@@ -1,143 +1,54 @@
 import React from "react";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
-
-const NavbarContainer = styled.nav`
-  background-color: black;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-z-index: 1000;
-
-
-  
-
-  h3{
-  font-size: 25px;
-  font-size: 2rem;
-  font-weight: bold;
-  background: linear-gradient(135deg, #007bff, #00d4ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: 'Poppins', sans-serif;
-  }
-
-  button {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  color: #00d4ff;
-  font-size: 15px;
-  background: none;
-  cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease; /* Smooth transitions */
-}
-
-button:hover {
-  background: linear-gradient(135deg, #007bff, #00d4ff);
-  color: white; /* Change text color for contrast on hover */
-}
-
-  
-`;
-
-const Logo = styled.img`
-  height: 40px;
-`;
-
-const NavLinks = styled.div`
-  display: flex;
-  gap: 1.5rem;
-`;
-
-const NavLink = styled.a`
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  &:hover {
-    color: grey;
-    text-decoration: underline;
-    text-decoration-color: #00d4ff;
-
-  }
-`;
-
-const SearchBar = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-`;
-
-const SearchInput = styled.input`
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-`;
-
-const SearchIcon = styled.span`
-  position: absolute;
-  right: 1rem;
-  pointer-events: none;
-`;
-
-const IconsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-right:40px
-`;
-
-const Icon = styled.span`
-  font-size: 1.5rem;
-  cursor: pointer;
-  &:hover {
-    color: #1f2937;
-  }
-`;
 
 function Navbar() {
   return (
-    <NavbarContainer>
-      
-      <h3>InnovateHub</h3>
-      
-      <NavLinks>
-        <NavLink href="/">Home</NavLink>
-        <NavLink href="#about">About</NavLink>
-        <NavLink href="/dish">Dashboard</NavLink>
-        <NavLink href="#contact">Contact Us</NavLink>
-      </NavLinks>
-      <IconsContainer>
-        <SearchBar>
-          <SearchInput type="search" placeholder="Search" />
-          <SearchIcon>🔍</SearchIcon>
-        </SearchBar>
-        {/* <Icon><Link to="/cart">🛒</Link></Icon> 
-        <Icon><Link to="/view">👤</Link></Icon>  */}
-        <button><Link to="/register" style={{color: "#00d4ff"}}>Sign In.</Link></button>
-      </IconsContainer>
-     
-    </NavbarContainer>
+    <nav className="bg-[#2E5077] fixed top-0 w-full shadow-lg z-50 py-4 px-6 flex justify-between items-center">
+      {/* Logo */}
+      <h3 className="text-2xl font-bold bg-gradient-to-r from-[#4DA1A9] to-[#79D7BE] text-transparent bg-clip-text font-poppins">
+        InnovateHub
+      </h3>
+
+      {/* Navigation Links */}
+      <div className="hidden md:flex space-x-8">
+        <Link to="/" className="text-[#F6F4F0] hover:text-[#79D7BE] transition">
+          Home
+        </Link>
+        <Link to="#about" className="text-[#F6F4F0] hover:text-[#79D7BE] transition">
+          About
+        </Link>
+        <Link to="/dish" className="text-[#F6F4F0] hover:text-[#79D7BE] transition">
+          Dashboard
+        </Link>
+        <Link to="#contact" className="text-[#F6F4F0] hover:text-[#79D7BE] transition">
+          Contact Us
+        </Link>
+      </div>
+
+      {/* Right Icons */}
+      <div className="flex items-center space-x-6">
+        {/* Search Bar */}
+        <div className="relative hidden md:block">
+          <input
+            type="search"
+            placeholder="Search"
+            className="px-4 py-2 rounded-md border border-[#4DA1A9] bg-transparent text-[#F6F4F0] focus:outline-none focus:border-[#79D7BE]"
+          />
+          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#F6F4F0]">
+            🔍
+          </span>
+        </div>
+
+        {/* Sign In Button */}
+        <Link
+          to="/register"
+          className="px-4 py-2 border border-[#4DA1A9] text-[#4DA1A9] rounded-md transition hover:bg-[#4DA1A9] hover:text-white"
+        >
+          Sign In
+        </Link>
+      </div>
+    </nav>
   );
 }
 
 export default Navbar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
