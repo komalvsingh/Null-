@@ -36,12 +36,13 @@ cron.schedule("0 0 * * *", () => {
 });
 
 mongoose
-  .connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(databaseUrl)
   .then(() => console.log("MongoDB Connected Successfully"))
   .catch((err) => {
     console.error("Error connecting to MongoDB:", err.message);
     process.exit(1);
   });
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
