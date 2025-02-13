@@ -1,6 +1,6 @@
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Signin from "./pages/register";
-import Store_dash from "./pages/store_dash";
+import HomePage from "./pages/Home";
 import Login from "./pages/login";
 import Shelter_dash from "./pages/shelter_dash";
 import AddItemPage from "./pages/add_iyems";
@@ -10,7 +10,7 @@ function App(){
     <BrowserRouter>
     <Routes>
       <Route path="/register" element={<Signin/>}></Route>
-       <Route path="/" element={<Store_dash/>}></Route> 
+       <Route path="/" element={<HomePage/>}></Route> 
       <Route path="/login" element={<Login/>}></Route>
       <Route path="/shelter" element={<Shelter_dash/>}></Route>
       <Route path="/add_items" element={<AddItemPage/>}></Route>
