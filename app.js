@@ -14,7 +14,7 @@ dotenv.config();
 app.use(cors());
 
 const PORT = process.env.PORT || 5001;
-const databaseUrl = process.env.MONGODB_URL || "mongodb://localhost:27017/foodmanage";
+const databaseUrl = process.env.MONGODB_URL ;
 const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173/";
 
 

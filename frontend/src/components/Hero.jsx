@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from "./Button";
+import Store from "../pages/StoreDashboard"
 
 export default function Hero() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,7 +21,7 @@ export default function Hero() {
       navigate('/login');
       return;
     }
-    navigate('/donate');
+    navigate(Store);
   };
 
   const handleFindFoodClick = () => {

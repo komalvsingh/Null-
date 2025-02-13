@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
+
 function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState({ username: "", password: "" });
@@ -36,7 +37,7 @@ function Login() {
         const userRole = res.data.role;
 
         if (userRole === "store") {
-          navigate("/");
+          navigate("/dashboard");
         } else if (userRole === "orphanage") {
           navigate("/shelter");
         } else {

@@ -5,6 +5,7 @@ import Impact from "../components/Impact"
 import CallToAction from "../components/CallToAction"
 import Footer from "../components/Footer"
 
+
 export default function Home() {
   return (
     <>
@@ -15,6 +16,7 @@ export default function Home() {
         <Impact />
         <CallToAction />
       </main>
+      
       <Footer />
     </>
   )
