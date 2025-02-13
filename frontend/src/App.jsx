@@ -1,10 +1,10 @@
 import {BrowserRouter,Routes,Route} from "react-router-dom"
-import Signin from "./components/register";
-import Store_dash from "./components/store_dash";
-import Login from "./components/login";
-import Shelter_dash from "./components/shelter_dash";
-import AddItemPage from "./components/add_iyems";
-import OrphanagePostPage from "./components/add_post";
+import Signin from "./pages/register";
+import Store_dash from "./pages/store_dash";
+import Login from "./pages/login";
+import Shelter_dash from "./pages/shelter_dash";
+import AddItemPage from "./pages/add_iyems";
+import OrphanagePostPage from "./pages/add_post";
 function App(){
   return (
     <BrowserRouter>

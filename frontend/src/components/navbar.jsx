@@ -1,54 +1,61 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Menu } from "lucide-react";
+import { useState } from "react";
 
-function Navbar() {
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav className="bg-[#2E5077] fixed top-0 w-full shadow-lg z-50 py-4 px-6 flex justify-between items-center">
-      {/* Logo */}
-      <h3 className="text-2xl font-bold bg-gradient-to-r from-[#4DA1A9] to-[#79D7BE] text-transparent bg-clip-text font-poppins">
-        InnovateHub
-      </h3>
-
-      {/* Navigation Links */}
-      <div className="hidden md:flex space-x-8">
-        <Link to="/" className="text-[#F6F4F0] hover:text-[#79D7BE] transition">
-          Home
-        </Link>
-        <Link to="#about" className="text-[#F6F4F0] hover:text-[#79D7BE] transition">
-          About
-        </Link>
-        <Link to="/dish" className="text-[#F6F4F0] hover:text-[#79D7BE] transition">
-          Dashboard
-        </Link>
-        <Link to="#contact" className="text-[#F6F4F0] hover:text-[#79D7BE] transition">
-          Contact Us
-        </Link>
-      </div>
-
-      {/* Right Icons */}
-      <div className="flex items-center space-x-6">
-        {/* Search Bar */}
-        <div className="relative hidden md:block">
-          <input
-            type="search"
-            placeholder="Search"
-            className="px-4 py-2 rounded-md border border-[#4DA1A9] bg-transparent text-[#F6F4F0] focus:outline-none focus:border-[#79D7BE]"
-          />
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#F6F4F0]">
-            🔍
-          </span>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" className="text-2xl font-bold text-primary font-display">
+          Waste No Food
+        </a>
+        
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-8">
+          <a href="#" className="text-text-primary hover:text-accent">
+            About
+          </a>
+          <a href="#" className="text-text-primary hover:text-accent">
+            How It Works
+          </a>
+          <a href="#" className="text-text-primary hover:text-accent">
+            Contact
+          </a>
+        </nav>
+        
+        {/* Mobile Menu Toggle */}
+        <div className="md:hidden">
+          <button onClick={() => setIsOpen(!isOpen)}>
+            <Menu className="w-6 h-6 text-text-primary" />
+          </button>
         </div>
-
-        {/* Sign In Button */}
-        <Link
-          to="/register"
-          className="px-4 py-2 border border-[#4DA1A9] text-[#4DA1A9] rounded-md transition hover:bg-[#4DA1A9] hover:text-white"
-        >
-          Sign In
-        </Link>
+        
+        {/* Buttons */}
+        <div className="hidden md:flex items-center space-x-4">
+          <button className="border px-4 py-2 rounded">Log In</button>
+          <button className="bg-primary text-white px-4 py-2 rounded">Sign Up</button>
+        </div>
       </div>
-    </nav>
+      
+      {/* Mobile Navigation */}
+      {isOpen && (
+        <nav className="md:hidden bg-white shadow-md p-4 absolute top-16 left-0 right-0">
+          <a href="#" className="block py-2 text-text-primary hover:text-accent">
+            About
+          </a>
+          <a href="#" className="block py-2 text-text-primary hover:text-accent">
+            How It Works
+          </a>
+          <a href="#" className="block py-2 text-text-primary hover:text-accent">
+            Contact
+          </a>
+          <div className="mt-4 flex flex-col space-y-2">
+            <button className="border px-4 py-2 rounded">Log In</button>
+            <button className="bg-primary text-white px-4 py-2 rounded">Sign Up</button>
+          </div>
+        </nav>
+      )}
+    </header>
   );
 }
-
-export default Navbar;
