@@ -3,7 +3,7 @@ import { Facebook, Twitter, Instagram } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-black py-12">
+    <footer className="bg-[#134611] text-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -33,23 +33,19 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4 font-display">Contact</h4>
             <ul className="space-y-2">
-              <li className="text-sm">info@wastenofood.org</li>
-              <li className="text-sm">1-800-123-4567</li>
-              <li className="text-sm">123 Main St, City, State 12345</li>
+              <li className="text-sm">info@foodsaver.org</li>
+              <li className="text-sm">1-XXX-XXXX-000</li>
+              <li className="text-sm">XXX Chembur, Mumbai, MH</li>
             </ul>
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-4 font-display">Follow Us</h4>
             <div className="flex space-x-4">
-              <Link href="#" className="text-white hover:text-accent">
-                <Facebook className="h-6 w-6" />
-              </Link>
-              <Link href="#" className="text-white hover:text-accent">
-                <Twitter className="h-6 w-6" />
-              </Link>
-              <Link href="#" className="text-white hover:text-accent">
-                <Instagram className="h-6 w-6" />
-              </Link>
+            <ul className="space-y-2">
+              <li className="text-sm">Instagram</li>
+              <li className="text-sm">X (Formerly Twitter)</li>
+              <li className="text-sm">Facebook</li>
+            </ul>
             </div>
           </div>
         </div>
