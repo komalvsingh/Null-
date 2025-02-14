@@ -25,13 +25,6 @@ const Sidebar = () => {  const location = useLocation();
           <Package size={20} />
           <span>Inventory</span>
         </Link>
-        <Link
-          to="/add_items"
-          className={`${location.pathname=='/add_items'?'bg-[#c4fc9e] text-black':'text-white'} flex items-center gap-2 hover:bg-[#1b2e27] p-3 rounded-lg w-full`}
-        >
-          <PlusSquare size={20} />
-          <span>Add Items</span>
-        </Link>
         
         <Link
           to="/donations"
