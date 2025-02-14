@@ -1,46 +1,26 @@
 import React from "react";
-import { PowerBIEmbed } from 'powerbi-client-react';
-import {models} from 'powerbi-client';
-function PowerBi(){
-return (
-  <>
-  {/* <PowerBIEmbed
-	embedConfig = {{
-		type: 'report',   // Supported types: report, dashboard, tile, visual, qna, paginated report and create
-		id: '<Report Id>',
-		embedUrl: '<Embed Url>',
-		accessToken: '<Access Token>',
-		tokenType: models.TokenType.Aad, // Use models.TokenType.Aad for SaaS embed
-		settings: {
-			panes: {
-				filters: {
-					expanded: false,
-					visible: false
-				}
-			},
-			background: models.BackgroundType.Transparent,
-		}
-	}}
 
-	eventHandlers = {
-		new Map([
-			['loaded', function () {console.log('Report loaded');}],
-			['rendered', function () {console.log('Report rendered');}],
-			['error', function (event) {console.log(event.detail);}],
-			['visualClicked', () => console.log('visual clicked')],
-			['pageChanged', (event) => console.log(event)],
-		])
-	}
-
-	cssClassName = { "reportClass" }
-
-	getEmbeddedComponent = { (embeddedReport) => {
-		window.report = embeddedReport;
-	}}
-/> */}
-
-<iframe title="nullpointers_report" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=a362530e-a48f-4201-a510-4ef8c3156578&autoAuth=true&ctid=cca3f0fe-586f-4426-a8bd-b8146307e738" frameborder="0" allowFullScreen="true"></iframe>
-  </>
-);
+function PowerBi() {
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-5xl p-4 bg-white shadow-lg rounded-xl">
+        <h2 className="text-center text-xl font-semibold mb-4 text-gray-700">
+          Power BI Dashboard
+        </h2>
+        <div className="flex justify-center">
+          <iframe
+            title="nullpointers_report"
+            width="100%"
+            height="500"
+            src="https://app.powerbi.com/reportEmbed?reportId=a362530e-a48f-4201-a510-4ef8c3156578&autoAuth=true&ctid=cca3f0fe-586f-4426-a8bd-b8146307e738"
+            frameBorder="0"
+            allowFullScreen
+            className="rounded-lg shadow-md"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 export default PowerBi;
