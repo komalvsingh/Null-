@@ -27,17 +27,30 @@ llm = HuggingFaceHub(
     huggingfacehub_api_token=os.getenv("HF_API_KEY")
 )
 
+# Define dynamic expiry thresholds
+EXPIRY_THRESHOLDS = {
+    "Fruits": 5,
+    "Vegetables": 7,
+    "Dairy": 3,
+    "Grains": 13,
+    "Meat": 2,
+    "Beverages": 10
+}
+
+def get_expiry_threshold(category):
+    return EXPIRY_THRESHOLDS.get(category, 5)
+
 # Function to check expiring products
 def check_expiring_products():
     today = datetime.utcnow()
-    expiry_threshold = today + timedelta(days=5)
-
-    print(f"Checking for expiry dates before: {expiry_threshold}")
-
-    expiring_items = list(items_collection.find({
-        "expiryDate": {"$lte": expiry_threshold},
-        "status": "Available"
-    }))
+    expiring_items = []
+    
+    all_items = list(items_collection.find({"status": "Available"}))
+    for item in all_items:
+        category = item.get("category", "Unknown")
+        expiry_threshold = today + timedelta(days=get_expiry_threshold(category))
+        if item.get("expiryDate") and item["expiryDate"] <= expiry_threshold:
+            expiring_items.append(item)
 
     print(f"Expiring items found: {len(expiring_items)}")
 
@@ -56,12 +69,14 @@ def check_expiring_products():
 # Function to match expiring items with orphanage requests
 def match_expiring_items():
     today = datetime.utcnow()
-    expiry_threshold = today + timedelta(days=3)
-
-    expiring_items = list(items_collection.find({
-        "expiryDate": {"$lte": expiry_threshold},
-        "status": "Available"
-    }))
+    expiring_items = []
+    
+    all_items = list(items_collection.find({"status": "Available"}))
+    for item in all_items:
+        category = item.get("category", "Unknown")
+        expiry_threshold = today + timedelta(days=get_expiry_threshold(category))
+        if item.get("expiryDate") and item["expiryDate"] <= expiry_threshold:
+            expiring_items.append(item)
 
     orphanage_requests = list(requests_collection.find({}))
 
@@ -84,7 +99,7 @@ def match_expiring_items():
 
     return recommendations if recommendations else ["No matching requests found."]
 
-# New function to predict category and unit
+# Function to predict category and unit
 @app.route('/api/predict-category', methods=['POST'])
 def predict_category():
     data = request.json
@@ -97,7 +112,6 @@ def predict_category():
     print(f"🎯 Available Units: {units}")
 
     try:
-        # More detailed and structured prompt
         prompt = f"""Given the food item '{item_name}', analyze its characteristics and categorize it.
 
 Rules for categorization:
@@ -124,11 +138,10 @@ Be precise and consider the item's typical form and usage."""
         response = llm(prompt)
         print(f"🟡 Raw AI Response: {response}")
 
-        # Extract JSON from response (more robust parsing)
+        # Extract JSON from response
         import re
         import json
         
-        # Find JSON-like structure in the response
         json_match = re.search(r'\{.*\}', response, re.DOTALL)
         if json_match:
             try:
@@ -153,10 +166,8 @@ Be precise and consider the item's typical form and usage."""
         # Validate and clean the response
         if 'category' not in result or result['category'] not in categories:
             print(f"⚠️ Invalid Category: {result.get('category', 'None')} → Correcting")
-            # Use more sophisticated category matching
             item_name_lower = item_name.lower()
             
-            # Basic category matching rules
             category_rules = {
                 'Fruits': ['apple', 'banana', 'orange', 'grape', 'berry', 'fruit'],
                 'Vegetables': ['carrot', 'potato', 'tomato', 'onion', 'vegetable', 'leafy'],
@@ -164,7 +175,6 @@ Be precise and consider the item's typical form and usage."""
                 'Grains': ['rice', 'wheat', 'bread', 'cereal', 'flour', 'pasta']
             }
             
-            # Find the best matching category
             matched_category = None
             for category, keywords in category_rules.items():
                 if any(keyword in item_name_lower for keyword in keywords):
@@ -175,7 +185,6 @@ Be precise and consider the item's typical form and usage."""
 
         if 'unit' not in result or result['unit'] not in units:
             print(f"⚠️ Invalid Unit: {result.get('unit', 'None')} → Correcting")
-            # Basic unit matching logic
             item_name_lower = item_name.lower()
             if any(liquid_keyword in item_name_lower for liquid_keyword in ['milk', 'juice', 'water', 'oil']):
                 result['unit'] = 'liters'
@@ -184,7 +193,6 @@ Be precise and consider the item's typical form and usage."""
             else:
                 result['unit'] = 'kg'
 
-        # Ensure all required fields are present
         final_result = {
             "category": result.get('category', categories[0]),
             "unit": result.get('unit', units[0]),
