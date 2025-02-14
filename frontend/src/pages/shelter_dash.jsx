@@ -43,8 +43,8 @@ const ShelterPage = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Home className="h-6 w-6 text-blue-600" />
-            <span className="text-xl font-semibold text-blue-600">
+            <Home className="h-6 w-6 text-[#134611]" />
+            <span className="text-xl font-semibold text-[#134611]">
               Shelter Connect
             </span>
           </motion.div>
@@ -67,7 +67,7 @@ const ShelterPage = () => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="mb-6 p-4 bg-blue-100 text-blue-800 rounded-lg"
+            className="mb-6 p-4 bg-blue-100 text-[#134611] rounded-lg"
           >
             {alertMessage}
           </motion.div>
@@ -140,7 +140,7 @@ const ShelterPage = () => {
                   Manage {title.toLowerCase()} easily.
                 </p>
                 <motion.button
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                  className="w-full bg-[#134611] hover:bg-[#134611] text-white font-semibold py-2 px-4 rounded-lg transition-colors"
                   onClick={() => handleNavigation(path)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -170,7 +170,7 @@ const ShelterPage = () => {
                 />
               </div>
               <motion.button
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+                className="bg-[#134611] hover:bg-[#4f7f4d] text-white font-semibold py-2 px-6 rounded-lg transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -191,7 +191,7 @@ const ShelterPage = () => {
             duration: 2,
           }}
         >
-          <ChevronDown className="h-8 w-8 text-blue-600" />
+          <ChevronDown className="h-8 w-8 text-[#134611]" />
         </motion.div>
       </main>
 
