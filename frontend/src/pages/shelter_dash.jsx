@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
-import { UserPlus, ClipboardList, Truck, LogOut, Home, Search } from 'lucide-react';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  UserPlus,
+  ClipboardList,
+  Truck,
+  LogOut,
+  Home,
+  Search,
+  ChevronDown,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ShelterPage = () => {
   const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     setShowAlert(true);
-    setAlertMessage('Successfully logged out');
+    setAlertMessage("Successfully logged out");
     setTimeout(() => setShowAlert(false), 3000);
+    navigate("/");
   };
 
   const handleNavigation = (path) => {
@@ -16,63 +29,136 @@ const ShelterPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white overflow-hidden">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 fixed w-full z-50">
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100 }}
+        className="bg-white/80 backdrop-blur-md border-b border-gray-200 fixed w-full z-50"
+      >
         <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Home className="h-6 w-6 text-blue-600" />
-            <span className="text-xl font-semibold text-blue-600">Shelter Connect</span>
-          </div>
-          <button
+          <motion.div
+            className="flex items-center space-x-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Home className="h-6 w-6 text-[#134611]" />
+            <span className="text-xl font-semibold text-[#134611]">
+              Shelter Connect
+            </span>
+          </motion.div>
+          <motion.button
             className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
             onClick={handleLogout}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             <LogOut className="h-4 w-4" />
             <span>Logout</span>
-          </button>
+          </motion.button>
         </div>
-      </header>
+      </motion.header>
 
       {/* Main Content */}
-      <main className="pt-24 pb-16 container mx-auto px-4">
+      <main className="pt-28 pb-16 container mx-auto px-4">
         {showAlert && (
-          <div className="mb-6 p-4 bg-blue-100 text-blue-800 rounded-lg">{alertMessage}</div>
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            className="mb-6 p-4 bg-blue-100 text-[#134611] rounded-lg"
+          >
+            {alertMessage}
+          </motion.div>
         )}
 
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Welcome to Shelter Connect</h1>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-center mb-12"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Welcome to Shelter Connect
+          </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Streamline your food donation process and help those in need with our integrated management system.
+            Streamline your food donation process and help those in need with
+            our integrated management system.
           </p>
-        </div>
+        </motion.div>
 
         {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+        >
           {[
-            { title: 'Request Food', icon: <UserPlus />, path: '/add_post' },
-            { title: 'View Requests', icon: <ClipboardList />, path: '/view-requests' },
-            { title: 'Track Deliveries', icon: <Truck />, path: '/track-delivery' },
-          ].map(({ title, icon, path }) => (
-            <div key={title} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
+            {
+              title: "Request Assistance",
+              buttonText: "Submit Request",
+              icon: <UserPlus />,
+              path: "/add_post",
+              color: "bg-green-100",
+            },
+            {
+              title: "Browse Requests",
+              buttonText: "View Requests",
+              icon: <ClipboardList />,
+              path: "/view-requests",
+              color: "bg-yellow-100",
+            },
+            {
+              title: "Monitor Deliveries",
+              buttonText: "Track Now",
+              icon: <Truck />,
+              path: "/track-delivery",
+              color: "bg-purple-100",
+            },
+          ].map(({ title, icon, path, color, buttonText }, index) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 * (index + 1) }}
+              whileHover={{ scale: 1.05 }}
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all p-6"
+            >
               <div className="flex flex-col items-center text-center space-y-4">
-                <div className="p-3 bg-blue-100 rounded-full">{icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
-                <p className="text-gray-600">Manage {title.toLowerCase()} easily.</p>
-                <button
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
-                  onClick={() => handleNavigation(path)}
+                <motion.div
+                  className={`p-3 ${color} rounded-full`}
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.5 }}
                 >
-                  {title}
-                </button>
+                  {icon}
+                </motion.div>
+                <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+                <p className="text-gray-600">
+                  Manage {title.toLowerCase()} easily.
+                </p>
+                <motion.button
+                  className="w-full bg-[#134611] hover:bg-[#134611] text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                  onClick={() => handleNavigation(path)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {buttonText}
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Search Section */}
-        <div className="mt-12 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mt-12 text-center"
+        >
           <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center space-x-4">
               <div className="relative flex-1">
@@ -83,19 +169,39 @@ const ShelterPage = () => {
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+              <motion.button
+                className="bg-[#134611] hover:bg-[#4f7f4d] text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 Search
-              </button>
+              </motion.button>
             </div>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          className="mt-12 flex justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            delay: 1,
+            repeat: Number.POSITIVE_INFINITY,
+            duration: 2,
+          }}
+        >
+          <ChevronDown className="h-8 w-8 text-[#134611]" />
+        </motion.div>
       </main>
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-6 text-center text-sm text-gray-600">
           <p>&copy; 2025 Shelter Connect. All rights reserved.</p>
-          <p className="mt-1">Making a difference in our community, one meal at a time.</p>
+          <p className="mt-1">
+            Making a difference in our community, one meal at a time.
+          </p>
         </div>
       </footer>
     </div>
