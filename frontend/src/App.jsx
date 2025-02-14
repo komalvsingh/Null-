@@ -21,7 +21,7 @@ function App(){
        <Route path="/" element={<HomePage/>}></Route> 
       <Route path="/login" element={<Login/>}></Route>
       <Route path="/shelter" element={<Shelter_dash/>}></Route>
-      <Route path="/add_items" element={<AddItemPage/>}></Route>
+      {/* <Route path="/add_items" element={<AddItemPage/>}></Route> */}
       <Route path="/add_post" element={<OrphanagePostPage/>}></Route>
       <Route path="/storedashboard" element={<InventoryHome />} />
       <Route path="/storeview" element={<InventoryHomenew/>} />

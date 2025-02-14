@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
+import AddItemPage from './add_iyems';
 
 const InventoryHomenew = () => {
   const [notifications] = useState([
@@ -18,7 +19,7 @@ const InventoryHomenew = () => {
     { id: 3, item: "Pasta", quantity: "100 boxes", status: "Processing", eta: "24 hours", supplier: "Italian Imports" },
     { id: 4, item: "Canned Goods", quantity: "200 units", status: "In Transit", eta: "5 hours", supplier: "Metro Supply" }
   ]);
-
+  const [isAdding, setIsAdding]=useState(false)
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const navigate=useNavigate()
@@ -34,8 +35,18 @@ const InventoryHomenew = () => {
       {/* <Header/> */}
       <Sidebar />
       
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex relative flex-col">
         {/* Navbar */}
+        {isAdding && (
+      <>
+        {/* Overlay covers the entire main area (navbar + content) */}
+        <div className="absolute inset-0 backdrop-blur-lg z-40" />
+        {/* Modal content centered over the blurred background */}
+        <div className="absolute inset-0 flex items-center justify-center z-50">
+          <AddItemPage setOpen={setIsAdding} />
+        </div>
+      </>
+    )}
         <nav className="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
           
           
@@ -54,7 +65,7 @@ const InventoryHomenew = () => {
           {/* Right Side Icons */}
           <div className="flex items-center gap-6">
             {/* Notifications */}
-            <Button className='bg-[#ccfeab] text-green-800 font-bold rounded-4xl'>
+            <Button onClick={()=>setIsAdding(true)} className='bg-[#ccfeab] text-green-800 font-bold rounded-4xl'>
               Add Items
             </Button>
             <div className="relative">
@@ -123,7 +134,14 @@ const InventoryHomenew = () => {
             </div>
           </div>
         </nav>
+        <div className="relative flex-1">
 
+
+      {/* Main content */}
+      <div className="p-8">
+        {/* Your main content goes here */}
+      </div>
+    </div>
         {/* Main Content */}
         <div className="flex-1 p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
