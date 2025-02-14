@@ -9,6 +9,7 @@ import OrphanagePostPage from "./pages/add_post";
 import StoreHomePage from "./pages/store_home";
 import InventoryHome from "./pages/StoreDashboard";
 import InventoryHomenew from "./pages/store_viewpage";
+import PowerBi from "./pages/powerbi";
 function App(){
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App(){
       <Route path="/storedashboard" element={<InventoryHome />} />
       <Route path="/storeview" element={<InventoryHomenew/>} />
       <Route path="/store_home" element={<StoreHomePage/>} />
+      <Route path="/report" element={<PowerBi/>} />
       
     
     </Routes>

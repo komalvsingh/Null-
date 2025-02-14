@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import axios from "axios";
@@ -14,10 +14,40 @@ function Signin() {
     email: "",
     password: "",
     userType: "store",
+    city: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Function to get user's location using Geolocation API
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchCityFromCoords(latitude, longitude);
+        },
+        (error) => {
+          console.warn("Geolocation permission denied or error occurred:", error);
+        }
+      );
+    }
+  }, []);
+
+  // Fetch city name from OpenStreetMap's Nominatim API
+  const fetchCityFromCoords = async (lat, lon) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+      );
+      const data = await response.json();
+      const city = data.address?.city || data.address?.town || data.address?.village || "";
+      setValues((prevValues) => ({ ...prevValues, city }));
+    } catch (error) {
+      console.error("Error fetching city name:", error);
+    }
+  };
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -28,8 +58,7 @@ function Signin() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:5001/api/user/register", values);
-
+      await axios.post("http://localhost:5001/api/user/register", values);
       toast.success("Registration successful! Redirecting...", { position: "top-right" });
 
       setTimeout(() => {
@@ -44,23 +73,23 @@ function Signin() {
 
   return (
     <Container
-  style={{
-    background: `url(${donorImage}) no-repeat center center / cover`,
-    minHeight: "100vh",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  }}
->
-  <Header />
+      style={{
+        background: `url(${donorImage}) no-repeat center center / cover`,
+        minHeight: "100vh",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Header />
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
-      
+
       <div className="card relative -top-16">
         <div className="left">
           <img src={DonationImage} alt="food-donation" />
         </div>
-        
+
         <div className="right">
           <form onSubmit={handleSubmit}>
             <div className="brand">
@@ -90,6 +119,14 @@ function Signin() {
                 placeholder="Password"
                 onChange={handleChange}
               />
+              <input
+                type="text"
+                name="city"
+                required
+                placeholder="City"
+                value={values.city}
+                onChange={handleChange}
+              />
               <select
                 name="userType"
                 onChange={handleChange}
@@ -114,7 +151,6 @@ function Signin() {
     </Container>
   );
 }
-
 // Animations
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
