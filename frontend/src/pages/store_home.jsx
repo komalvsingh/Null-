@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const StoreHomePage = ({ username, onLogout }) => {
   return (
@@ -36,8 +37,8 @@ const StoreHomePage = ({ username, onLogout }) => {
           Manage your inventory, track donations, and help those in need.
         </p>
         <button className="px-6 py-3 bg-green-600 text-white rounded-xl text-lg hover:bg-green-700 transition duration-300">
-          Go to Dashboard
-        </button>
+  <Link to="/storedashboard" className="block w-full h-full">Go to Dashboard</Link>
+</button>
       </div>
     </div>
   );
