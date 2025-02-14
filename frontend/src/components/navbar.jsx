@@ -1,8 +1,19 @@
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { currentUser, logout } = useContext(AuthContext) || {}; // Ensure context is not undefined
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    if (logout) {
+      logout(); // Clear user session
+      navigate("/login"); // Redirect to login page
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
@@ -31,10 +42,19 @@ export default function Header() {
           </button>
         </div>
         
-        {/* Buttons */}
+        {/* User Section */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className="border px-4 py-2 rounded">Log In</button>
-          <button className="bg-primary text-white px-4 py-2 rounded">Sign Up</button>
+          {currentUser ? (
+            <>
+              <span className="text-primary font-medium">{currentUser.username}</span>
+              <button onClick={handleLogout} className="border px-4 py-2 rounded">Logout</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => navigate("/login")} className="border px-4 py-2 rounded">Log In</button>
+              <button onClick={() => navigate("/register")} className="bg-primary text-white px-4 py-2 rounded">Sign Up</button>
+            </>
+          )}
         </div>
       </div>
       
@@ -51,8 +71,17 @@ export default function Header() {
             Contact
           </a>
           <div className="mt-4 flex flex-col space-y-2">
-            <button className="border px-4 py-2 rounded">Log In</button>
-            <button className="bg-primary text-white px-4 py-2 rounded">Sign Up</button>
+            {currentUser ? (
+              <>
+                <span className="text-primary font-medium text-center">{currentUser.username}</span>
+                <button onClick={handleLogout} className="border px-4 py-2 rounded">Logout</button>
+              </>
+            ) : (
+              <>
+                <button onClick={() => navigate("/login")} className="border px-4 py-2 rounded">Log In</button>
+                <button onClick={() => navigate("/register")} className="bg-primary text-white px-4 py-2 rounded">Sign Up</button>
+              </>
+            )}
           </div>
         </nav>
       )}
