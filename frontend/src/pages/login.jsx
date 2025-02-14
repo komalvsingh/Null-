@@ -3,17 +3,15 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import DonationImage from "../assets/R.jpg";
-import Toast from "../components/Toast"; // Importing Toast component
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import donorImage from "../assets/donate.png";
 
 function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastType, setToastType] = useState(""); // "success" or "error"
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -24,20 +22,17 @@ function Login() {
     localStorage.setItem("role", userData.role);
   };
 
-
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-  
+
     try {
       const res = await axios.post("http://localhost:5001/api/user/login", values);
-  
       if (res.data) {
         updateUser(res.data);
         toast.success("Login successful!", { position: "top-right" });
-  
+
         const userRole = res.data.role;
         if (userRole === "store") {
           navigate("/store_home");
@@ -55,79 +50,63 @@ function Login() {
       setIsLoading(false);
     }
   };
-  
 
   return (
-    <FormContainer>
-      {/* Show Toast when message exists */}
-      {toastMessage && (
-        <Toast message={toastMessage} type={toastType} onClose={() => setToastMessage("")} />
-      )}
-
-      <div className="card">
-        <div className="left">
-          <img src={DonationImage} alt="food-donation" />
+    <div style={{ backgroundImage: `url(${donorImage})` }} className="bg-cover bg-center h-64 w-full">
+      <FormContainer>
+        <div className="card">
+          <div className="left">
+            <img src={DonationImage} alt="food-donation" />
+          </div>
+          <div className="right">
+            <form onSubmit={handleSubmit}>
+              <div className="brand">
+                <h1>Food & Drink Donation</h1>
+                <p>Login to make a difference</p>
+              </div>
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  value={values.username}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={values.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              {error && <p className="error">{error}</p>}
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Logging in..." : "Log In"}
+              </button>
+              <span>
+                Don't have an account? <Link to="/register">Sign Up</Link>
+              </span>
+            </form>
+          </div>
         </div>
-        <div className="right">
-          <form onSubmit={handleSubmit}>
-            <div className="brand">
-              <h1>Food & Drink Donation</h1>
-              <p>Login to make a difference</p>
-            </div>
-            <div className="input-group">
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={values.username}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={values.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            {error && <p className="error">{error}</p>}
-            <button type="submit" disabled={isLoading}>
-              {isLoading ? "Logging in..." : "Log In"}
-            </button>
-            <span>
-              Don't have an account? <Link to="/register">Sign Up</Link>
-            </span>
-          </form>
-        </div>
-      </div>
-    </FormContainer>
+      </FormContainer>
+    </div>
   );
 }
 
 // Keyframes for animations
 const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 `;
 
 const pulse = keyframes`
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 `;
 
 const FormContainer = styled.div`
@@ -236,37 +215,6 @@ const FormContainer = styled.div`
       &:hover {
         background: linear-gradient(135deg, #79d7be, #4da1a9);
         transform: translateY(-2px);
-      }
-
-      &:disabled {
-        cursor: not-allowed;
-        background: #cccccc;
-        animation: none;
-      }
-    }
-
-    .error {
-      color: #ff4d4d;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    span {
-      font-size: 0.9rem;
-      color: #2e5077;
-      text-align: center;
-      margin-top: 1.5rem;
-
-      a {
-        color: #4da1a9;
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.3s ease;
-
-        &:hover {
-          color: #79d7be;
-        }
       }
     }
   }
