@@ -1,7 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-const StoreHomePage = ({ username, onLogout }) => {
+const StoreHomePage = () => {
+  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Get user data from localStorage on component mount
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUserData(JSON.parse(user));
+      // Add this console.log to debug what's in localStorage
+      console.log("User data from localStorage:", JSON.parse(user));
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
+    navigate("/login");
+  };
+
   return (
     <div className="relative w-full h-screen">
       {/* Background Image */}
@@ -17,15 +38,20 @@ const StoreHomePage = ({ username, onLogout }) => {
       {/* Navbar */}
       <nav className="relative z-10 flex justify-between items-center px-8 py-4 bg-green-500 bg-opacity-90 text-white shadow-md">
         <h1 className="text-2xl font-bold">Store Dashboard</h1>
-        <div className="flex items-center space-x-4">
-          <span className="text-lg font-medium">{username}</span>
-          <button
-            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
-            onClick={onLogout}
-          >
-            Logout
-          </button>
-        </div>
+        {userData && (
+          <div className="flex items-center space-x-4">
+            <span className="text-lg font-medium">
+              {/* Display just the username value */}
+              {userData.username || "Welcome"}
+            </span>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </nav>
 
       {/* Main Section */}
@@ -37,8 +63,10 @@ const StoreHomePage = ({ username, onLogout }) => {
           Manage your inventory, track donations, and help those in need.
         </p>
         <button className="px-6 py-3 bg-green-600 text-white rounded-xl text-lg hover:bg-green-700 transition duration-300">
-  <Link to="/storedashboard" className="block w-full h-full">Go to Dashboard</Link>
-</button>
+          <Link to="/storedashboard" className="block w-full h-full">
+            Go to Dashboard
+          </Link>
+        </button>
       </div>
     </div>
   );
