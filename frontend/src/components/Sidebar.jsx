@@ -14,7 +14,7 @@ const Sidebar = () => {
           <span>Add Items</span>
         </Link>
         <Link
-          to="/inventory"
+          to="/storedashboard"
           className="flex items-center gap-2 text-white hover:bg-[#1b2e27] p-3 rounded-lg w-full"
         >
           <Package size={20} />

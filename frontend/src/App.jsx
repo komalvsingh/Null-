@@ -8,6 +8,7 @@ import OrphanagePostPage from "./pages/add_post";
 
 import StoreHomePage from "./pages/store_home";
 import InventoryHome from "./pages/StoreDashboard";
+import InventoryHomenew from "./pages/store_viewpage";
 function App(){
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App(){
       <Route path="/add_items" element={<AddItemPage/>}></Route>
       <Route path="/add_post" element={<OrphanagePostPage/>}></Route>
       <Route path="/storedashboard" element={<InventoryHome />} />
+      <Route path="/storeview" element={<InventoryHomenew/>} />
       <Route path="/store_home" element={<StoreHomePage/>} />
       
     

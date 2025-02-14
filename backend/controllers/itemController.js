@@ -11,6 +11,31 @@ export const addItem = async (req, res) => {
   }
 };
 
+export const getstats = async (req, res) => {
+  try {
+    const totalItems = await Item.countDocuments();
+    const lowStock = await Item.countDocuments({ quantity: { $lt: 10 } }); // Adjust threshold if needed
+
+    // Fetching low-stock item details
+    const lowStockItems = await Item.find({ quantity: { $lt: 10 } }).select('itemName quantity');
+
+    res.json({ totalItems, lowStock, lowStockItems });
+  } catch (error) {
+    console.error('Error fetching stats:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+export const getitems = async (req, res) => {
+  try {
+    const items = await Item.find();
+    res.status(200).json(items);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching items', error });
+  }
+};
+
 // Delete an item by ID
 export const deleteItem = async (req, res) => {
   try {
