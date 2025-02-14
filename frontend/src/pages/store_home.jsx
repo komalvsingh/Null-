@@ -1,75 +1,65 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from 'react';
 
-const StoreHomePage = () => {
-  const [userData, setUserData] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Get user data from localStorage on component mount
-    const user = localStorage.getItem("user");
-    if (user) {
-      setUserData(JSON.parse(user));
-      // Add this console.log to debug what's in localStorage
-      console.log("User data from localStorage:", JSON.parse(user));
-    } else {
-      navigate("/login");
-    }
-  }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("role");
-    navigate("/login");
-  };
-
+const FoodDonationDashboard = () => {
   return (
-    <div className="relative w-full h-screen">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url('https://cdn.prod.website-files.com/622faf89982b1a82750a4f2b/62ce9040f6e3931b4589c94a_Supermarket%20Management%20Systems%20-%20Header.png')",
-          filter: "brightness(0.6)",
-        }}
-      ></div>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-800">🍎 Surplus Food Donation Dashboard</h1>
+          <p className="text-gray-600 mt-2">Manage donations, track inventory, and help reduce food waste.</p>
+        </div>
 
-      {/* Navbar */}
-      <nav className="relative z-10 flex justify-between items-center px-8 py-4 bg-green-500 bg-opacity-90 text-white shadow-md">
-        <h1 className="text-2xl font-bold">Store Dashboard</h1>
-        {userData && (
-          <div className="flex items-center space-x-4">
-            <span className="text-lg font-medium">
-              {/* Display just the username value */}
-              {userData.username || "Welcome"}
-            </span>
-            <button
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-green-50 p-6 rounded-lg shadow-sm">
+            <h2 className="text-xl font-semibold text-green-800 mb-4">📦 Manage Donations</h2>
+            <p className="text-gray-600">Add, update, or remove surplus food donations.</p>
           </div>
-        )}
-      </nav>
+          <div className="bg-blue-50 p-6 rounded-lg shadow-sm">
+            <h2 className="text-xl font-semibold text-blue-800 mb-4">📊 Track Inventory</h2>
+            <p className="text-gray-600">Monitor available food items and expiration dates.</p>
+          </div>
+          <div className="bg-yellow-50 p-6 rounded-lg shadow-sm">
+            <h2 className="text-xl font-semibold text-yellow-800 mb-4">🚚 Schedule Pickups</h2>
+            <p className="text-gray-600">Arrange for food collection and distribution.</p>
+          </div>
+          <div className="bg-purple-50 p-6 rounded-lg shadow-sm">
+            <h2 className="text-xl font-semibold text-purple-800 mb-4">📝 View Requests</h2>
+            <p className="text-gray-600">See requests from organizations or individuals in need.</p>
+          </div>
+        </div>
 
-      {/* Main Section */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6">
-        <h2 className="text-4xl font-bold mb-4 text-green-200">
-          Welcome to Your Store Dashboard
-        </h2>
-        <p className="text-lg mb-6 text-green-300">
-          Manage your inventory, track donations, and help those in need.
-        </p>
-        <button className="px-6 py-3 bg-green-600 text-white rounded-xl text-lg hover:bg-green-700 transition duration-300">
-          <Link to="/storeview" className="block w-full h-full">
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Recent Activity</h2>
+          <div className="space-y-4">
+            <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-700">🕒 Latest Donations</h3>
+              <p className="text-gray-600">View recently added surplus food items.</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-700">📈 Distribution Stats</h3>
+              <p className="text-gray-600">Track how much food has been distributed.</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-700">📝 Pending Requests</h3>
+              <p className="text-gray-600">Review and fulfill pending food requests.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-indigo-50 p-6 rounded-lg shadow-sm">
+          <h2 className="text-xl font-semibold text-indigo-800 mb-4">Tips & Updates</h2>
+          <p className="text-gray-600">💡 <strong>Pro Tip:</strong> Regularly update inventory to avoid expired items.</p>
+          <p className="text-gray-600">🔔 <strong>Update:</strong> New features for managing donations are now available!</p>
+        </div>
+
+        <div className="text-center mt-8">
+          <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition duration-300">
             Go to Dashboard
-          </Link>
-        </button>
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default StoreHomePage;
+export default FoodDonationDashboard;

@@ -36,7 +36,7 @@ function Login() {
 
         const userRole = res.data.role;
         if (userRole === "store") {
-          navigate("/store_home");
+          navigate("/storeview");
         } else if (userRole === "orphanage") {
           navigate("/shelter");
         } else {

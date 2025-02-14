@@ -21,8 +21,8 @@ const ShelterPage = () => {
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 fixed w-full z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
           <div className="flex items-center space-x-2">
-            <Home className="h-6 w-6 text-blue-600" />
-            <span className="text-xl font-semibold text-blue-600">Shelter Connect</span>
+            <Home className="h-6 w-6 text-[#134611]" />
+            <span className="text-xl font-semibold text-[#134611]">Shelter Connect</span>
           </div>
           <button
             className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
@@ -61,7 +61,7 @@ const ShelterPage = () => {
                 <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
                 <p className="text-gray-600">Manage {title.toLowerCase()} easily.</p>
                 <button
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                  className="w-full bg-[#134611] hover:bg-[blue-700] text-white font-semibold py-2 px-4 rounded-lg transition-colors"
                   onClick={() => handleNavigation(path)}
                 >
                   {title}
@@ -83,7 +83,7 @@ const ShelterPage = () => {
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+              <button className="bg-[#134611] hover:bg-[blue-700] text-white font-semibold py-2 px-6 rounded-lg transition-colors">
                 Search
               </button>
             </div>
