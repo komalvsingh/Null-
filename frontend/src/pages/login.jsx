@@ -2,8 +2,15 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
+<<<<<<< HEAD
 import { AuthContext } from "../context/AuthContext"; // Import AuthContext
 import DonationImage from '../assets/R.jpg';
+=======
+import DonationImage from "../assets/R.jpg";
+import Toast from "../components/Toast"; // Importing Toast component
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+>>>>>>> 5db729bd39f4aee6557c345e5a7a67d5f2e418d1
 
 function Login() {
   const navigate = useNavigate();
@@ -11,42 +18,74 @@ function Login() {
   const [values, setValues] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState(""); // "success" or "error"
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
+<<<<<<< HEAD
+=======
+  const updateUser = (userData) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("role", userData.role);
+  };
+
+
+  
+>>>>>>> 5db729bd39f4aee6557c345e5a7a67d5f2e418d1
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+<<<<<<< HEAD
 
     try {
       const res = await axios.post("http://localhost:5001/api/user/login", values);
 
       if (res.data) {
         updateUser(res.data); // Update global context state
+=======
+  
+    try {
+      const res = await axios.post("http://localhost:5001/api/user/login", values);
+  
+      if (res.data) {
+        updateUser(res.data);
+        toast.success("Login successful!", { position: "top-right" });
+  
+>>>>>>> 5db729bd39f4aee6557c345e5a7a67d5f2e418d1
         const userRole = res.data.role;
-
         if (userRole === "store") {
+<<<<<<< HEAD
           navigate("/");
+=======
+          navigate("/store_home");
+>>>>>>> 5db729bd39f4aee6557c345e5a7a67d5f2e418d1
         } else if (userRole === "orphanage") {
           navigate("/shelter");
         } else {
           navigate("/");
         }
       } else {
-        setError("Invalid response from server");
+        toast.error("Invalid response from server", { position: "top-right" });
       }
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred. Please try again.");
+      toast.error(err.response?.data?.message || "An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <FormContainer>
+      {/* Show Toast when message exists */}
+      {toastMessage && (
+        <Toast message={toastMessage} type={toastType} onClose={() => setToastMessage("")} />
+      )}
+
       <div className="card">
         <div className="left">
           <img src={DonationImage} alt="food-donation" />
