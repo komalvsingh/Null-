@@ -1,20 +1,14 @@
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-<<<<<<< HEAD
-import { AuthContext } from "../context/AuthContext"; // Import AuthContext
-import DonationImage from '../assets/R.jpg';
-=======
 import DonationImage from "../assets/R.jpg";
 import Toast from "../components/Toast"; // Importing Toast component
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
->>>>>>> 5db729bd39f4aee6557c345e5a7a67d5f2e418d1
 
 function Login() {
   const navigate = useNavigate();
-  const { updateUser } = useContext(AuthContext); // Use AuthContext
   const [values, setValues] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -25,8 +19,6 @@ function Login() {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-<<<<<<< HEAD
-=======
   const updateUser = (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));
     localStorage.setItem("role", userData.role);
@@ -34,19 +26,10 @@ function Login() {
 
 
   
->>>>>>> 5db729bd39f4aee6557c345e5a7a67d5f2e418d1
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-<<<<<<< HEAD
-
-    try {
-      const res = await axios.post("http://localhost:5001/api/user/login", values);
-
-      if (res.data) {
-        updateUser(res.data); // Update global context state
-=======
   
     try {
       const res = await axios.post("http://localhost:5001/api/user/login", values);
@@ -55,14 +38,9 @@ function Login() {
         updateUser(res.data);
         toast.success("Login successful!", { position: "top-right" });
   
->>>>>>> 5db729bd39f4aee6557c345e5a7a67d5f2e418d1
         const userRole = res.data.role;
         if (userRole === "store") {
-<<<<<<< HEAD
-          navigate("/");
-=======
           navigate("/store_home");
->>>>>>> 5db729bd39f4aee6557c345e5a7a67d5f2e418d1
         } else if (userRole === "orphanage") {
           navigate("/shelter");
         } else {
@@ -130,14 +108,26 @@ function Login() {
 
 // Keyframes for animations
 const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
 const pulse = keyframes`
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 `;
 
 const FormContainer = styled.div`
