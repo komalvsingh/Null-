@@ -51,7 +51,7 @@ const ShelterPage = () => {
         {/* Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {[
-            { title: 'Request Food', icon: <UserPlus />, path: '/add-request' },
+            { title: 'Request Food', icon: <UserPlus />, path: '/add_post' },
             { title: 'View Requests', icon: <ClipboardList />, path: '/view-requests' },
             { title: 'Track Deliveries', icon: <Truck />, path: '/track-delivery' },
           ].map(({ title, icon, path }) => (
