@@ -6,6 +6,7 @@ import DonationImage from "../assets/R.jpg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import donorImage from "../assets/donate.png";
+import Header from "../components/Header";
 
 function Login() {
   const navigate = useNavigate();
@@ -51,10 +52,20 @@ function Login() {
     }
   };
 
+  
+  console.log(donorImage)
   return (
-    <div style={{ backgroundImage: `url(${donorImage})` }} className="bg-cover bg-center h-64 w-full">
-      <FormContainer>
-        <div className="card">
+    // <div>
+      <Container
+        
+      >
+      <Header />
+      
+      <FormContainer style={{
+          background: `url("${donorImage}") no-repeat center center / cover`,
+          
+        }}>
+        <div className="card relative -top-16">
           <div className="left">
             <img src={DonationImage} alt="food-donation" />
           </div>
@@ -80,7 +91,7 @@ function Login() {
                   value={values.password}
                   onChange={handleChange}
                   required
-                />
+                  />
               </div>
               {error && <p className="error">{error}</p>}
               <button type="submit" disabled={isLoading}>
@@ -93,7 +104,8 @@ function Login() {
           </div>
         </div>
       </FormContainer>
-    </div>
+                  </Container>
+    // </div>
   );
 }
 
@@ -219,5 +231,133 @@ const FormContainer = styled.div`
     }
   }
 `;
+  const Container = styled.div`
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f6f4f0;
+    overflow: hidden;
 
+    .card {
+      display: flex;
+      flex-direction: row;
+      background-color: #ffffff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+      width: 900px;
+      height: 550px;
+      animation: ${fadeIn} 0.8s ease-out;
+    }
+
+    .left {
+      flex: 1;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .right {
+      flex: 1;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: ${fadeIn} 1s ease-out;
+
+      .brand {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        h1 {
+          color: #2e5077;
+          font-size: 2.2rem;
+          margin-bottom: 0.5rem;
+        }
+        p {
+          color: #4da1a9;
+          font-size: 0.9rem;
+        }
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      input,
+      select {
+        border: none;
+        border-bottom: 2px solid #4da1a9;
+        padding: 0.5rem 0;
+        color: #2e5077;
+        width: 100%;
+        font-size: 1rem;
+        outline: none;
+        transition: border-bottom 0.3s ease;
+
+        &:focus {
+          border-bottom: 2px solid #79d7be;
+        }
+
+        &::placeholder {
+          color: #aaaaaa;
+        }
+      }
+
+      button {
+        background: linear-gradient(135deg, #4da1a9, #79d7be);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 0.4rem;
+        font-size: 1rem;
+        width: 100%;
+        text-transform: uppercase;
+        transition: background 0.3s ease, transform 0.3s ease;
+        animation: ${pulse} 2s infinite;
+
+        &:hover {
+          background: linear-gradient(135deg, #79d7be, #4da1a9);
+          transform: translateY(-2px);
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          background: #cccccc;
+          animation: none;
+        }
+      }
+
+      span {
+        font-size: 0.9rem;
+        color: #2e5077;
+        text-align: center;
+        margin-top: 1.5rem;
+
+        a {
+          color: #4da1a9;
+          text-decoration: none;
+          font-weight: bold;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #79d7be;
+          }
+        }
+      }
+    }
+  `;
 export default Login;
