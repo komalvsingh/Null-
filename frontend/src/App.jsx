@@ -6,6 +6,7 @@ import Shelter_dash from "./pages/shelter_dash";
 import AddItemPage from "./pages/add_iyems";
 import OrphanagePostPage from "./pages/add_post";
 import DashboardLayout from "./pages/StoreDashboard";
+import StoreHomePage from "./pages/store_home";
 function App(){
   return (
     <BrowserRouter>
@@ -16,7 +17,9 @@ function App(){
       <Route path="/shelter" element={<Shelter_dash/>}></Route>
       <Route path="/add_items" element={<AddItemPage/>}></Route>
       <Route path="/add_post" element={<OrphanagePostPage/>}></Route>
-      <Route path="/dashboard" element={<DashboardLayout />} />
+      <Route path="/storedashboard" element={<DashboardLayout />} />
+      <Route path="/store_home" element={<StoreHomePage/>} />
+      
     
     </Routes>
     </BrowserRouter>
