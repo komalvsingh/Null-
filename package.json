@@ -45,6 +45,7 @@
     "react-on-screen": "^2.1.1",
     "react-router-dom": "^7.0.2",
     "react-slick": "^0.30.2",
+    "react-toastify": "^11.0.3",
     "socket.io-client": "^4.8.1",
     "styled-components": "^6.1.13"
   },
