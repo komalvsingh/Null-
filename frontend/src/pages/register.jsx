@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DonationImage from "../assets/R.jpg";
+import donorImage from "../assets/donate.png";
 
 function Signin() {
   const [values, setValues] = useState({
@@ -41,7 +42,17 @@ function Signin() {
   };
 
   return (
-    <Container>
+    <Container
+  style={{
+    background: `url(${donorImage}) no-repeat center center / cover`,
+    minHeight: "100vh",
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+>
+
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       
       <div className="card">
