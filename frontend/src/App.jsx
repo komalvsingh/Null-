@@ -10,8 +10,11 @@ import StoreHomePage from "./pages/store_home";
 import InventoryHome from "./pages/StoreDashboard";
 import InventoryHomenew from "./pages/store_viewpage";
 import PowerBi from "./pages/powerbi";
+import { WalletProvider } from "./context/WalletContext";
 function App(){
   return (
+    <WalletProvider>
+
     <BrowserRouter>
     <Routes>
       <Route path="/register" element={<Signin/>}></Route>
@@ -28,6 +31,7 @@ function App(){
     
     </Routes>
     </BrowserRouter>
+    </WalletProvider>
   );
 }
 export default App;

@@ -3,6 +3,7 @@ import { Bell, Search, User, LogOut, TrendingUp, Package, AlertTriangle,Heart, T
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Button from '../components/Button';
+import { useNavigate } from 'react-router-dom';
 
 const InventoryHomenew = () => {
   const [notifications] = useState([
@@ -20,7 +21,12 @@ const InventoryHomenew = () => {
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-
+  const navigate=useNavigate()
+  const signOut=()=>{
+    localStorage.removeItem('user');
+    localStorage.removeItem('role');
+    navigate("/")
+  }
   return (
     <div>
       
@@ -107,7 +113,7 @@ const InventoryHomenew = () => {
                       <User size={16} />
                       <span>View Profile</span>
                     </button>
-                    <button className="w-full p-2 text-left text-sm text-red-600 hover:bg-red-50 rounded flex items-center gap-2">
+                    <button onClick={signOut} className="w-full p-2 text-left text-sm text-red-600 hover:bg-red-50 rounded flex items-center gap-2">
                       <LogOut size={16} />
                       <span>Sign Out</span>
                     </button>
