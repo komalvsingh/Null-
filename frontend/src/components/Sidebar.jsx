@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="w-64 bg-[#255d49] min-h-screen p-4">
+    <div className="w-64 bg-[#134611] min-h-screen p-4">
       <div className="flex flex-col gap-4">
         <Link
           to="/add_items"
