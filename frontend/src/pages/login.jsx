@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
+import DonationImage from '../assets/R.jpg';
 
 
 function Login() {
@@ -57,10 +58,7 @@ function Login() {
     <FormContainer>
       <div className="card">
         <div className="left">
-          <img
-            src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-            alt="side-img"
-          />
+        <img src={DonationImage} alt="food-donation" />
         </div>
         <div className="right">
           <form onSubmit={handleSubmit}>
