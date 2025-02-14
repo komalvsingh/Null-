@@ -1,32 +1,38 @@
-import { Utensils, Users, Truck } from "lucide-react"
+import { Utensils, Users, Truck, Package } from "lucide-react";
 
 const features = [
   {
     icon: <Utensils className="h-12 w-12 text-accent" />,
     title: "Donate Excess Food",
     description: "Restaurants and food service providers can easily donate their surplus food.",
-    color:"text-green-500"
+    color: "text-green-500"
   },
   {
     icon: <Users className="h-12 w-12 text-accent" />,
     title: "Connect with Those in Need",
     description: "We connect food donors with local charities and individuals facing food insecurity.",
-    color:"text-red-500"
+    color: "text-red-500"
   },
   {
     icon: <Truck className="h-12 w-12 text-accent" />,
     title: "Efficient Distribution",
     description: "Our network ensures quick and efficient distribution of donated food.",
-    color:"text-blue-500"
+    color: "text-blue-500"
   },
-]
+  {
+    icon: <Package className="h-12 w-12 text-accent" />,
+    title: "Inventory Management",
+    description: "Track and manage donations effectively to ensure optimized distribution.",
+    color: "text-purple-500"
+  },
+];
 
 export default function Features() {
   return (
     <section className="py-20 bg-[#e0FFCC]">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12 font-display">How It Works</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <div key={index} className={`text-center hover:scale-115 transition-all hover:bg-${feature.color.slice(5)} rounded-2xl p-5 shadow-2xl bg-stone-200 `}>
               <div className={`mb-4 flex justify-center ${feature.color}`}>{feature.icon}</div>
@@ -37,6 +43,5 @@ export default function Features() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-
