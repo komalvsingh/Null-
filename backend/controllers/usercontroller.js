@@ -8,7 +8,9 @@ dotenv.config(); // Load environment variables
 // Register a new user
 export const register = async (req, res, next) => {
   try {
-    const { username, email, password,role } = req.body;
+    console.log("Received request body:", req.body); // Debugging  
+
+    const { username, email, password, userType } = req.body;
 
     // Check if email already exists
     const existingUser = await Users.findOne({ email });
@@ -24,17 +26,20 @@ export const register = async (req, res, next) => {
       username, 
       email, 
       password: hashedPassword, 
-      
-      role: role || 'store' // Default role is 'user' if not provided
+      role: userType || 'store'  // Default to 'store' only if role is undefined
     });
+
+    console.log("Saving user with role:", newUser.role); // Debugging  
+
     await newUser.save();
 
     return res.status(201).json({ message: "User created successfully" });
   } catch (err) {
     console.error("Error in register:", err.message);
-    next(err); // Pass error to the error middleware
+    next(err);
   }
 };
+
 
 // Login a user
 export const login = async (req, res, next) => {

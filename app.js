@@ -14,7 +14,7 @@ dotenv.config();
 app.use(cors());
 
 const PORT = process.env.PORT || 5001;
-const databaseUrl = process.env.MONGODB_URL ;
+const databaseUrl = process.env.MONGODB_URL;
 const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173/";
 
 
@@ -36,7 +36,11 @@ cron.schedule("0 0 * * *", () => {
 });
 
 mongoose
-  .connect(databaseUrl)
+  .connect(databaseUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "foodmanage"  
+  })
   .then(() => console.log("MongoDB Connected Successfully"))
   .catch((err) => {
     console.error("Error connecting to MongoDB:", err.message);

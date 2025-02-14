@@ -19,6 +19,8 @@ function Signin() {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -29,6 +31,7 @@ function Signin() {
     const email = formData.get("email");
     const password = formData.get("password");
     const userType = formData.get("userType");
+    
 
     try {
       const res = await axios.post("http://localhost:5001/api/user/register", {
@@ -36,6 +39,7 @@ function Signin() {
         email,
         password,
         userType,
+        
       });
 
       navigate("/login");
@@ -45,7 +49,6 @@ function Signin() {
       setIsLoading(false);
     }
   };
-
   return (
     <Container>
       <div className="card">
