@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Search, Edit, Trash2 } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import axios from 'axios';
+import Button from '../components/Button';
+
 
 const InventoryHome = () => {
   const [items, setItems] = useState([]);
@@ -71,9 +73,9 @@ const InventoryHome = () => {
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <nav className="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
-          <div className="text-xl font-semibold text-gray-800">Store Dashboard</div>
-          <div className="flex-1 max-w-xl mx-8">
-            <div className="relative">
+         
+          <div className="flex-1 flex justify-between mx-8">
+            <div className="relative w-1/3">
               <input
                 type="text"
                 placeholder="Search inventory..."
@@ -82,7 +84,12 @@ const InventoryHome = () => {
                 className="w-full p-2.5 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#52B2CF] focus:border-transparent"
               />
               <Search className="absolute left-3 top-3 text-gray-400" size={18} />
+
             </div>
+            
+            <Button className='bg-[#ccfeab] text-green-800 font-bold rounded-4xl'>
+              Add Items
+            </Button>
           </div>
         </nav>
         <div className="grid grid-cols-2 gap-4 p-8">

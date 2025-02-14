@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Bell, Search, User, LogOut, TrendingUp, Package, AlertTriangle,Heart, Truck } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import Button from '../components/Button';
 
 const InventoryHomenew = () => {
   const [notifications] = useState([
@@ -20,13 +22,16 @@ const InventoryHomenew = () => {
   const [showNotifications, setShowNotifications] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div>
+      
+    <div className="flex min-h-screen  bg-gray-50">
+      {/* <Header/> */}
       <Sidebar />
       
       <div className="flex-1 flex flex-col">
         {/* Navbar */}
         <nav className="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
-          <div className="text-xl font-semibold text-gray-800">Store Dashboard</div>
+          
           
           {/* Search Bar */}
           <div className="flex-1 max-w-xl mx-8">
@@ -39,15 +44,18 @@ const InventoryHomenew = () => {
               <Search className="absolute left-3 top-3 text-gray-400" size={18} />
             </div>
           </div>
-
+          
           {/* Right Side Icons */}
           <div className="flex items-center gap-6">
             {/* Notifications */}
+            <Button className='bg-[#ccfeab] text-green-800 font-bold rounded-4xl'>
+              Add Items
+            </Button>
             <div className="relative">
               <button 
                 onClick={() => setShowNotifications(!showNotifications)}
                 className="text-gray-600 hover:bg-gray-100 p-2 rounded-full transition-colors relative"
-              >
+                >
                 <Bell size={20} />
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {notifications.length}
@@ -79,12 +87,12 @@ const InventoryHomenew = () => {
               <button 
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                 className="flex items-center gap-2 hover:bg-gray-100 p-2 rounded-lg transition-colors"
-              >
+                >
                 <img
                   src="/api/placeholder/32/32"
                   alt="Profile"
                   className="w-8 h-8 rounded-full border-2 border-gray-200"
-                />
+                  />
                 <div className="text-sm font-medium text-gray-700">Admin</div>
               </button>
               
@@ -183,6 +191,7 @@ const InventoryHomenew = () => {
             <button className="text-sm text-[#52B2CF] hover:text-[#355761] font-medium">
               View All Deliveries
             </button>
+            
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -209,7 +218,7 @@ const InventoryHomenew = () => {
                           : delivery.status === "In Transit"
                           ? "bg-blue-100 text-blue-700"
                           : "bg-yellow-100 text-yellow-700"
-                      }`}>
+                        }`}>
                         {delivery.status}
                       </span>
                     </td>
@@ -222,6 +231,7 @@ const InventoryHomenew = () => {
         </div>
       </div>
     </div>
+                </div>
   );
 };
 
