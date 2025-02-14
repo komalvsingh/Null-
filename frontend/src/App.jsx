@@ -5,7 +5,7 @@ import Login from "./pages/login";
 import Shelter_dash from "./pages/shelter_dash";
 import AddItemPage from "./pages/add_iyems";
 import OrphanagePostPage from "./pages/add_post";
-
+import RequestPage from "./pages/RequestFood_shelter";
 import StoreHomePage from "./pages/store_home";
 import InventoryHome from "./pages/StoreDashboard";
 import InventoryHomenew from "./pages/store_viewpage";
@@ -27,6 +27,7 @@ function App(){
       <Route path="/storeview" element={<InventoryHomenew/>} />
       <Route path="/store_home" element={<StoreHomePage/>} />
       <Route path="/report" element={<PowerBi/>} />
+      <Route path="/request" element={<RequestPage/>} />
       
     
     </Routes>
