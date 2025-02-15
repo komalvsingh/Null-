@@ -10,6 +10,7 @@ import StoreHomePage from "./pages/store_home";
 import InventoryHome from "./pages/StoreDashboard";
 import InventoryHomenew from "./pages/store_viewpage";
 import PowerBi from "./pages/powerbi";
+import { WalletProvider } from "./context/WalletContext";
 function App(){
   return (
     <WalletProvider>
@@ -26,6 +27,7 @@ function App(){
       <Route path="/storeview" element={<InventoryHomenew/>} />
       <Route path="/store_home" element={<StoreHomePage/>} />
       <Route path="/report" element={<PowerBi/>} />
+      <Route path="/request" element={<RequestPage/>}></Route>
       
     
     </Routes>
