@@ -35,7 +35,7 @@ requests_collection = db["orphanageposts"]
 
 # Initialize Hugging Face Model via LangChain
 llm = HuggingFaceHub(
-    repo_id="mistralai/Mistral-7B-Instruct-v0.2",
+    repo_id="tiiuae/falcon-7b-instruct",
     model_kwargs={"temperature": 1.0, "top_p": 0.95, "max_length": 250},
     huggingfacehub_api_token=os.getenv("HF_API_KEY")
 )
@@ -122,35 +122,86 @@ def check_expiring_products():
                         continue  # Skip this item if date parsing fails
             
             if item_expiry and item_expiry <= expiry_threshold:
-                expiring_items.append(item)
+                # Format expiry date for display
+                formatted_expiry = format_date_for_display(item['expiryDate'])
+                
+                # Create structured item data
+                expiring_item = {
+                    "itemName": item.get('itemName', ''),
+                    "quantity": item.get('quantity', ''),
+                    "unit": item.get('unit', ''),
+                    "location": item.get('location', ''),
+                    "expiryDate": formatted_expiry,
+                    "category": category,
+                    "daysUntilExpiry": (item_expiry - today).days,
+                    "status": "Available"
+                }
+                expiring_items.append(expiring_item)
 
         print(f"Expiring items found: {len(expiring_items)}")
 
         if not expiring_items:
-            return "No expiring products found."
+            return {
+                "status": "success",
+                "message": "No expiring products found.",
+                "data": []
+            }
 
-        # Format expiry dates for display
-        formatted_items = []
-        for item in expiring_items:
-            formatted_expiry = format_date_for_display(item['expiryDate'])
-            formatted_items.append(
-                f"{item['itemName']} ({item['quantity']} {item['unit']}) in {item['location']}, "
-                f"expires on {formatted_expiry}"
-            )
+        # Generate AI recommendation based on the items
+        items_description = ", ".join([
+            f"{item['itemName']} ({item['quantity']} {item['unit']}) in {item['location']}, expires on {item['expiryDate']}"
+            for item in expiring_items
+        ])
 
         prompt = f"""
         The following food items are expiring soon:
-        {', '.join(formatted_items)}.
+        {items_description}.
         Suggest an appropriate action.
         """
 
-        ai_response = llm(prompt)
-        return ai_response
+        ai_recommendation = llm(prompt)
+
+        # Return structured JSON response
+        response = {
+            "status": "success",
+            "message": "Found expiring products",
+            "data": {
+                "items": expiring_items,
+                "totalItems": len(expiring_items),
+                "recommendation": ai_recommendation
+            }
+        }
+        
+        return response
     
     except Exception as e:
         error_msg = f"Error in check_expiring_products: {str(e)}\n{traceback.format_exc()}"
         print(error_msg)
-        return f"Error checking expiring products: {str(e)}"
+        return {
+            "status": "error",
+            "message": f"Error checking expiring products: {str(e)}",
+            "data": None
+        }
+
+# Update the API route to handle the JSON response
+@app.route("/check-expiring", methods=["GET"])
+def api_check_expiring():
+    response = check_expiring_products()
+    
+    # Only send email if there are expiring items
+    if response["status"] == "success" and response["data"] and response["data"]["items"]:
+        email_content = (
+            f"Found {response['data']['totalItems']} expiring items.\n\n"
+            f"AI Recommendation:\n{response['data']['recommendation']}\n\n"
+            "Items List:\n" + "\n".join([
+                f"- {item['itemName']} ({item['quantity']} {item['unit']}) in {item['location']}, expires on {item['expiryDate']}"
+                for item in response['data']['items']
+            ])
+        )
+        email_sent = send_email("Expiring Products Notification", email_content)
+        response["email_sent"] = email_sent
+    
+    return jsonify(response)
 
 # Function to match expiring items with orphanage requests
 def match_expiring_items():
@@ -349,15 +400,15 @@ def send_email(subject, message):
         return False
 
 # API Route: Check Expiring Products
-@app.route("/check-expiring", methods=["GET"])
-def api_check_expiring():
-    response = check_expiring_products()
-    email_sent = send_email("Expiring Products Notification", response)
+# @app.route("/check-expiring", methods=["GET"])
+# def api_check_expiring():
+#     response = check_expiring_products()
+#     email_sent = send_email("Expiring Products Notification", response)
     
-    return jsonify({
-        "message": response,
-        "email_sent": email_sent
-    })
+#     return jsonify({
+#         "message": response,
+#         "email_sent": email_sent
+#     })
 
 # API Route: Match Expiring Items with Requests
 @app.route("/match-requests", methods=["GET"])
