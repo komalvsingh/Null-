@@ -12,6 +12,7 @@ import InventoryHomenew from "./pages/store_viewpage";
 import PowerBi from "./pages/powerbi";
 import { WalletProvider } from "./context/WalletContext";
 import DeliveryTrackingPage from "./pages/Delivery_track";
+import TrackDelivery from "./pages/deliv_track_2";
 
 import ExpiryNotifications from "./pages/expiry_notify";
 import OrphanageRequests from "./pages/store_request";
@@ -35,6 +36,7 @@ function App(){
       <Route path="/delivery-tracking" element={<DeliveryTrackingPage />} />
       <Route path="/expiry_notify" element={<ExpiryNotifications/>} />
       <Route path="/orphan_request" element={<OrphanageRequests/>} />
+      <Route path="/track-delivery" element={<TrackDelivery/>} />
       
     
     </Routes>
