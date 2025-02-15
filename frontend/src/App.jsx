@@ -10,6 +10,8 @@ import StoreHomePage from "./pages/store_home";
 import InventoryHome from "./pages/StoreDashboard";
 import InventoryHomenew from "./pages/store_viewpage";
 import PowerBi from "./pages/powerbi";
+import { WalletProvider } from "./context/WalletContext";
+import ExpiryNotifications from "./pages/expiry_notify";
 function App(){
   return (
     <WalletProvider>
@@ -20,12 +22,15 @@ function App(){
        <Route path="/" element={<HomePage/>}></Route> 
       <Route path="/login" element={<Login/>}></Route>
       <Route path="/shelter" element={<Shelter_dash/>}></Route>
-      {/* <Route path="/add_items" element={<AddItemPage/>}></Route> */}
+       <Route path="/add_items" element={<AddItemPage/>}></Route> 
       <Route path="/add_post" element={<OrphanagePostPage/>}></Route>
       <Route path="/storedashboard" element={<InventoryHome />} />
       <Route path="/storeview" element={<InventoryHomenew/>} />
       <Route path="/store_home" element={<StoreHomePage/>} />
       <Route path="/report" element={<PowerBi/>} />
+      <Route path="/request" element={<RequestPage/>} />
+      <Route path="/expiry_notify" element={<ExpiryNotifications/>} />
+      
       
     
     </Routes>
