@@ -32,11 +32,11 @@ const Sidebar = () => {  const location = useLocation();
         </Link>
         
         <Link
-          to="/donations"
+          to="/expiry_notify"
           className={`${location.pathname=='/donations'?'bg-[#c4fc9e] text-black':'text-white'} flex items-center gap-2 hover:bg-[#1b2e27] p-3 rounded-lg w-full`}
         >
           <Heart size={20} />
-          <span>Donations</span>
+          <span>Check Expiry Products</span>
         </Link>
       </div>
     </div>
