@@ -108,8 +108,9 @@ const ShelterPage = () => {
               title: "Browse Requests",
               buttonText: "View Requests",
               icon: <ClipboardList />,
-              path: "/view-requests",
+              path: "/request",
               color: "bg-yellow-100",
+
             },
             {
               title: "Monitor Deliveries",
@@ -126,6 +127,7 @@ const ShelterPage = () => {
               transition={{ delay: 0.2 * (index + 1) }}
               whileHover={{ scale: 1.05 }}
               className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all p-6"
+              onClick={()=> {navigate(path)}}
             >
               <div className="flex flex-col items-center text-center space-y-4">
                 <motion.div
@@ -144,6 +146,7 @@ const ShelterPage = () => {
                   onClick={() => handleNavigation(path)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  
                 >
                   {buttonText}
                 </motion.button>
