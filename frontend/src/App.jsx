@@ -13,6 +13,8 @@ import PowerBi from "./pages/powerbi";
 import { WalletProvider } from "./context/WalletContext";
 import DeliveryTrackingPage from "./pages/Delivery_track";
 
+import ExpiryNotifications from "./pages/expiry_notify";
+import OrphanageRequests from "./pages/store_request";
 function App(){
   return (
     <WalletProvider>
@@ -23,7 +25,7 @@ function App(){
        <Route path="/" element={<HomePage/>}></Route> 
       <Route path="/login" element={<Login/>}></Route>
       <Route path="/shelter" element={<Shelter_dash/>}></Route>
-      {/* <Route path="/add_items" element={<AddItemPage/>}></Route> */}
+      <Route path="/add_items" element={<AddItemPage/>}></Route>
       <Route path="/add_post" element={<OrphanagePostPage/>}></Route>
       <Route path="/storedashboard" element={<InventoryHome />} />
       <Route path="/storeview" element={<InventoryHomenew/>} />
@@ -31,6 +33,8 @@ function App(){
       <Route path="/report" element={<PowerBi/>} />
       <Route path="/request" element={<RequestPage/>}></Route>
       <Route path="/delivery-tracking" element={<DeliveryTrackingPage />} />
+      <Route path="/expiry_notify" element={<ExpiryNotifications/>} />
+      <Route path="/orphan_request" element={<OrphanageRequests/>} />
       
     
     </Routes>
