@@ -11,6 +11,8 @@ import InventoryHome from "./pages/StoreDashboard";
 import InventoryHomenew from "./pages/store_viewpage";
 import PowerBi from "./pages/powerbi";
 import { WalletProvider } from "./context/WalletContext";
+import DeliveryTrackingPage from "./pages/Delivery_track";
+
 function App(){
   return (
     <WalletProvider>
@@ -28,6 +30,7 @@ function App(){
       <Route path="/store_home" element={<StoreHomePage/>} />
       <Route path="/report" element={<PowerBi/>} />
       <Route path="/request" element={<RequestPage/>}></Route>
+      <Route path="/delivery-tracking" element={<DeliveryTrackingPage />} />
       
     
     </Routes>

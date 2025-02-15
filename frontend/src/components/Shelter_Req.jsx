@@ -85,7 +85,7 @@ export default function RequestPanel() {
           </div>
         </div>
         <div>
-          <label htmlFor="urgency" className="block font-medium flex items-center gap-2">
+          <label htmlFor="urgency" className=" font-medium flex items-center gap-2">
             <AlertTriangle size={18} /> Urgency Level
           </label>
           <select
@@ -112,7 +112,7 @@ export default function RequestPanel() {
           />
         </div>
         <div>
-          <label htmlFor="phone" className="block font-medium flex items-center gap-2">
+          <label htmlFor="phone" className="font-medium flex items-center gap-2">
             <Phone size={18} /> Phone Number
           </label>
           <input
