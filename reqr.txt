@@ -1,0 +1,9 @@
+Flask
+pymongo
+langchain
+huggingface_hub
+python-dotenv
+smtplib
+email
+datetime
+flask-cors

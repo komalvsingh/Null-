@@ -1,23 +1,32 @@
+"use client";
 
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Filter } from "lucide-react";
 
-const mockInventory = [
-  { id: 1, name: "Rice", quantity: 100, expiry: "2023-12-31", category: "Veg", source: "Restaurant" },
-  { id: 2, name: "Chicken Curry", quantity: 50, expiry: "2023-12-25", category: "Non-Veg", source: "Restaurant" },
-  { id: 3, name: "Milk", quantity: 30, expiry: "2023-12-20", category: "Dairy", source: "Grocery Store" },
-];
-
 export default function InventoryDisplay() {
+  const [inventory, setInventory] = useState([]);
   const [filter, setFilter] = useState("All");
-  
-  const filteredInventory = mockInventory.filter(
+
+  useEffect(() => {
+    const fetchInventory = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/match-requests");
+        const data = await response.json();
+        setInventory(data);
+      } catch (error) {
+        console.error("Error fetching inventory:", error);
+      }
+    };
+
+    fetchInventory();
+  }, []);
+
+  const filteredInventory = inventory.filter(
     (item) => filter === "All" || item.category === filter
   );
 
   return (
-    <div className=" p-4 rounded-md min-h-full h-full shadow-md bg-white">
+    <div className="p-4 rounded-md min-h-full h-full shadow-md bg-white">
       <h2 className="text-xl font-bold mb-4">Available Food Items</h2>
       <div className="mb-4 flex flex-wrap gap-2">
         <div className="relative flex-1">
@@ -33,9 +42,9 @@ export default function InventoryDisplay() {
           onChange={(e) => setFilter(e.target.value)}
         >
           <option value="All">All</option>
-          <option value="Veg">Veg</option>
-          <option value="Non-Veg">Non-Veg</option>
-          <option value="Dairy">Dairy</option>
+          <option value="Vegetables">Vegetables</option>
+          <option value="Packaged Food">Packaged Food</option>
+          <option value="Grains">Grains</option>
         </select>
         <button className="p-2 border rounded-md bg-gray-100">
           <Filter className="h-4 w-4" />
@@ -43,23 +52,27 @@ export default function InventoryDisplay() {
         </button>
       </div>
       <div className="space-y-4">
-        {filteredInventory.map((item) => (
-          <div key={item.id} className="flex items-center justify-between border-b pb-2">
-            <div>
-              <h3 className="font-semibold">{item.name}</h3>
-              <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
-              <p className="text-sm text-gray-500">Expiry: {item.expiry}</p>
-              <p className="text-sm text-gray-500">Source: {item.source}</p>
+        {filteredInventory.length > 0 ? (
+          filteredInventory.map((item) => (
+            <div key={item._id} className="flex items-center justify-between border-b pb-2">
+              <div>
+                <h3 className="font-semibold">{item.itemName}</h3>
+                <p className="text-sm text-gray-500">Quantity: {item.quantity} {item.unit}</p>
+                <p className="text-sm text-gray-500">Expiry: {new Date(item.expiryDate).toLocaleDateString()}</p>
+                <p className="text-sm text-gray-500">Location: {item.location}</p>
+              </div>
+              <span className={`px-2 py-1 text-xs rounded-md ${
+                item.category === "Vegetables" ? "bg-green-200 text-green-800" : 
+                item.category === "Packaged Food" ? "bg-blue-200 text-blue-800" : 
+                "bg-yellow-200 text-yellow-800"
+              }`}>
+                {item.category}
+              </span>
             </div>
-            <span className={`px-2 py-1 text-xs rounded-md ${
-              item.category === "Veg" ? "bg-green-200 text-green-800" : 
-              item.category === "Non-Veg" ? "bg-red-200 text-red-800" : 
-              "bg-gray-200 text-gray-800"
-            }`}>
-              {item.category}
-            </span>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-gray-500">No food items available.</p>
+        )}
       </div>
     </div>
   );

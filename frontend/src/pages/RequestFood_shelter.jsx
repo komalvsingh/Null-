@@ -17,9 +17,7 @@ export default function DashboardPage() {
           <div>
             <RequestPanel />
           </div>
-          <div className="md:col-span-2 lg:col-span-3">
-            <RequestTracking />
-          </div>
+          
           
         </div>
       </main>

@@ -9,7 +9,7 @@ import {
   Search,
   ChevronDown,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 const ShelterPage = () => {
   const [showAlert, setShowAlert] = useState(false);
