@@ -87,9 +87,7 @@ const InventoryHome = () => {
 
             </div>
             
-            <Button className='bg-[#ccfeab] text-green-800 font-bold rounded-4xl'>
-              Add Items
-            </Button>
+          
           </div>
         </nav>
         <div className="grid grid-cols-2 gap-4 p-8">
