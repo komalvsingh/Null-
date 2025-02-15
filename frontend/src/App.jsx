@@ -16,6 +16,7 @@ import TrackDelivery from "./pages/deliv_track_2";
 
 import ExpiryNotifications from "./pages/expiry_notify";
 import OrphanageRequests from "./pages/store_request";
+import TrackDeliveryPage from "./pages/trackDelivery";
 function App(){
   return (
     <WalletProvider>
@@ -37,7 +38,8 @@ function App(){
       <Route path="/expiry_notify" element={<ExpiryNotifications/>} />
       <Route path="/orphan_request" element={<OrphanageRequests/>} />
       <Route path="/request" element={<RequestPage/>} />
-      <Route path="/track-delivery" element={<TrackDelivery/>} />
+      <Route path="/track-delivery" element={<TrackDeliveryPage/>} />
+
       
     
     </Routes>
