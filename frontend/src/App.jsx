@@ -31,6 +31,7 @@ function App(){
       <Route path="/report" element={<PowerBi/>} />
       <Route path="/expiry_notify" element={<ExpiryNotifications/>} />
       <Route path="/orphan_request" element={<OrphanageRequests/>} />
+      <Route path="/request" element={<RequestPage/>} />
       
     
     </Routes>
